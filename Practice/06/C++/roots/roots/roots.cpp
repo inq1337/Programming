@@ -27,10 +27,12 @@ int main()
             cout << "x = 0";
     }
     else
-        if (b == 0)
+        if (b == 0 and c != 0)
             cout << "Это не уравнение";
-        else if (c == 0)
+        else if (c == 0 and b != 0)
             cout << "x = " << 0;
+        else if (b == 0 and c == 0)
+            cout << "Корнем уравнения является любое число";
         else
             cout << "x = " << -c / b;
 }

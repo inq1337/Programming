@@ -15,9 +15,11 @@ if a != 0:
     else:
         print ('x = 0', sep="")
 else:
-    if b == 0:
+    if b == 0 and c != 0:
         print('Это не уравнение')
-    elif c == 0:
+    elif c == 0 and b != 0:
         print('x = ', 0, sep="")
+    elif b == 0 and c == 0:
+        print('Корнем уравнения является любое число')
     else:
         print('x = ', -c/b, sep="")
