@@ -13,10 +13,10 @@ if a != 0:
         else :
             print('Нет корней')
     else:
-        print ('x = 0', sep="")
+        print ('x = 0')
 else:
     if b == 0 and c != 0:
-        print('Это не уравнение')
+        print(c, 'не равно', 0)
     elif c == 0 and b != 0:
         print('x = ', 0, sep="")
     elif b == 0 and c == 0:

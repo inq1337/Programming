@@ -12,8 +12,7 @@ while True:
                 print('Площадь треугольника S = ', S, sep="")
                 break
             else:
-                print('Такого треугольника не существует. Попробуйте ещё  раз')
-                continue
+                print('Такого треугольника не существует. Попробуйте ещё  раз\n')
         break
     elif method == 2:
         while True:
@@ -30,9 +29,7 @@ while True:
                 print('Площадь треугольника S = ', S, sep="")
                 break
             else:
-                print('Такого треугольника не существует. Попробуйте ещё  раз')
-                continue
+                print('Такого треугольника не существует. Попробуйте ещё  раз\n')
         break
     else:
         print('Введите 1 или 2')
-        continue

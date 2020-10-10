@@ -3,7 +3,7 @@ while True:
     a = float(a)
     b = float(b)
     if sign == '/' and b == 0:
-        print('Делить на 0 нельзя. Попробуйте ещё раз')
+        print('Делить на 0 нельзя. Попробуйте ещё раз\n')
         continue
     elif sign == '+' or sign == '-' or sign == '*' or sign == '/':
         if sign == '+':
@@ -14,7 +14,6 @@ while True:
             print(a*b)
         elif sign == '/':
             print(a/b)
+        break
     else:
-        print('Неверный знак. Попробуйте ещё раз')
-        continue
-    break
+        print('Неверный знак. Попробуйте ещё раз\n')
