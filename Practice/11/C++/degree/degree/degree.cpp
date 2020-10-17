@@ -16,13 +16,13 @@ int main()
 	else if (deg < 0)
 	{
 		deg = -deg;
-		for (cnt = 1; cnt < deg; cnt = cnt + 1)
+		for (cnt = 1; cnt < deg; cnt++)
 			num = num * defnum;
 		cout << 1 / num;
 	}
 	else
 	{
-		for (cnt = 1; cnt < deg; cnt = cnt + 1)
+		for (cnt = 1; cnt < deg; cnt++)
 			num = num * defnum;
 		cout << num;
 	}
