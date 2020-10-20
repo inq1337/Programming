@@ -2,10 +2,7 @@ while True:
     a, sign, b =input('Введите выражение\n').split()
     a = float(a)
     b = float(b)
-    if sign == '/' and b == 0:
-        print('Делить на 0 нельзя. Попробуйте ещё раз\n')
-        continue
-    elif sign == '+' or sign == '-' or sign == '*' or sign == '/':
+    if sign == '+' or sign == '-' or sign == '*' or sign == '/':
         if sign == '+':
             print(a+b)
         elif sign == '-':
@@ -13,7 +10,11 @@ while True:
         elif sign == '*':
             print(a*b)
         elif sign == '/':
-            print(a/b)
+            if b == 0:
+                print('Делить на 0 нельзя. Попробуйте ещё раз\n')
+                continue
+            else:
+                print(a/b)
         break
     else:
         print('Неверный знак. Попробуйте ещё раз\n')

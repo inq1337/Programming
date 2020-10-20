@@ -6,8 +6,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 
 	int num, cnt;
-	long long fc;
-	fc = 1;
+	long long fc = 1;
 	cout << "Введите число, факториал которого необходимо рассчитать\n";
 	cin >> num;
 	if (num <= 12)

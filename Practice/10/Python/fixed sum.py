@@ -1,5 +1,6 @@
 while True:
-    s, l1, r1, l2, r2 = map(int,input('Введите через пробел числа s, l1, r1, l2, r2\nЧисла должны удовлетворять условиям l1 <= r1 и l2 <= r2\n').split())
+    print('Введите через пробел числа s, l1, r1, l2, r2')
+    s, l1, r1, l2, r2 = map(int,input('Числа должны удовлетворять условиям l1 <= r1 и l2 <= r2\n').split())
     if l1 <= r1 and l2 <= r2:
         if s < l1 + l2 or s > r1 + r2:
             print(-1)
@@ -13,3 +14,5 @@ while True:
                 x = r2 - (l1 + r2 - s)
                 print(l1, x)
         break
+    else:
+        print('Числа не удовлетворяют условиям\n')

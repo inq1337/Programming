@@ -5,20 +5,20 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 
-	double a, b, c;
-	cout << "Введите число a и число b\n";
-	cin >> a >> b;
-	cout << "Производится обмен значениями между a и b\n";
-	c = a;
-	a = b;
-	b = c;
-	cout << "Число a = " << a << endl << "Число b = " << b << endl;
-	double a1, b1;
+	double a1, b1, c;
 	cout << "Введите число a и число b\n";
 	cin >> a1 >> b1;
 	cout << "Производится обмен значениями между a и b\n";
-	a1 = a1 + b1;
-	b1 = a1 - b1;
-	a1 = a1 - b1;
-	cout << "Число a = " << a1 << endl << "Число b = " << b1;
+	c = a1;
+	a1 = b1;
+	b1 = c;
+	cout << "Число a = " << a1 << endl << "Число b = " << b1 << endl;
+	double a2, b2;
+	cout << "Введите число a и число b\n";
+	cin >> a2 >> b2;
+	cout << "Производится обмен значениями между a и b\n";
+	a2 = a2 + b2;
+	b2 = a2 - b2;
+	a2 = a2 - b2;
+	cout << "Число a = " << a2 << endl << "Число b = " << b2;
 }

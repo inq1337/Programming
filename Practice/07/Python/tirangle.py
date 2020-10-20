@@ -6,7 +6,7 @@ while True:
             a = float(input())
             b = float(input())
             c = float(input())
-            if a>0 and b>0 and c>0 and b+c>a and c+a>b and a+b>c:
+            if a > 0 and b > 0 and c > 0 and b + c > a and c + a > b and a + b > c:
                 p = (a + b + c) / 2
                 S = (p * (p - a) * (p - b) * (p - c))**0.5
                 print('Площадь треугольника S = ', S, sep="")
@@ -23,7 +23,7 @@ while True:
             a = ((xC - xB) * (xC - xB) + (yC - yB) * (yC - yB))**0.5
             b = ((xA - xC) * (xA - xC) + (yA - yC) * (yA - yC))**0.5
             c = ((xB - xA) * (xB - xA) + (yB - yA) * (yB - yA))**0.5 
-            if a>0 and b>0 and c>0 and b+c>a and c+a>b and a+b>c:
+            if a > 0 and b > 0 and c > 0 and b + c > a and c + a > b and a + b > c:
                 p = (a + b + c) / 2
                 S = (p * (p - a) * (p - b) * (p - c))**0.5
                 print('Площадь треугольника S = ', S, sep="")
@@ -32,4 +32,4 @@ while True:
                 print('Такого треугольника не существует. Попробуйте ещё  раз\n')
         break
     else:
-        print('Введите 1 или 2')
+        print('Введите 1 или 2\n')

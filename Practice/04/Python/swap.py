@@ -1,15 +1,15 @@
-a1 = input("Введите число a\n")
-b1 = input("Введите число b\n")
+a1 = float(input("Введите число a\n"))
+b1 = float(input("Введите число b\n"))
 print("Производится обмен значениями между a и b...")
 c = a1
 a1 = b1
-b1 = c1
-print("Число a = ", a, sep="")
-print("Число b = ", b, sep="")
-a1 = float(input("Введите число a\n"))
-b1 = float(input("Введите число b\n"))
+b1 = c
+print("Число a = ", a1, sep="")
+print("Число b = ", b1, sep="")
+a2 = float(input("Введите число a\n"))
+b2 = float(input("Введите число b\n"))
 print("Производится обмен значениями между a и b...")
 a2 = a2+b2
 b2 = a2-b2
 a2 = a2-b2
-print("Число a =", a, "Число b =", b)
+print("Число a =", a2, "Число b =", b2)

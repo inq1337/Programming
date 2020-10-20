@@ -6,8 +6,7 @@ int main()
 	setlocale(LC_ALL, "Russian");
 
 	long num;
-	int cnt, i;
-	i = 0;
+	int cnt, i = 0;
 	cout << "Введите число\n";
 	cin >> num;
 	if (num >= 2)
