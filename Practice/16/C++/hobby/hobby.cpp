@@ -3,13 +3,13 @@ using namespace std;
 
 string pattern = "a???55661";
 
-bool IsTicketValid(string code, int n)
+bool IsTicketValid(string code)
 {
-	if (code.length() == 9)
+	if (code.length() == pattern.length())
 	{
-		if ((code[0] == 'a') and (97 <= code[1]) and (code[1] <= 122))
+		if ((code[0] == 97) and (97 <= code[1]) and (code[1] <= 122))
 		{
-			for (int i = 2; i < 9; i++)
+			for (int i = 2; i < pattern.length(); i++)
 			{
 				if (pattern[i] == '?')
 				{
@@ -51,7 +51,7 @@ int main()
 			for (int i = 0; i < n; i++)
 			{
 				cin >> code;
-				if (IsTicketValid(code, 9) == true)
+				if (IsTicketValid(code) == true)
 				{
 					answer = answer + code + " ";
 					k++;

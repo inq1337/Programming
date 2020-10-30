@@ -1,11 +1,11 @@
 pattern = str('a???55661')
 
-def IsTicketValid(code: str, n: int) -> bool:
-	if (len(code) == 9):
-		if code[0] == 'a' and 97 <= code[1] and code[1] <= 122:
-			for i in range(2,9):
+def IsTicketValid(code) -> bool:
+	if (len(code) == len(pattern)):
+		if ord(code[0]) == 97 and ord(code[1]) in range(97, 122+1):
+			for i in range(2, len(pattern)):
 				if (pattern[i] == '?'):
-					if 48 <= code[i] and code[i] <= 57:
+					if ord(code[i]) in range(48, 57+1):
 						continue
 					else:
 						return False
@@ -20,19 +20,16 @@ def IsTicketValid(code: str, n: int) -> bool:
 	else:
 		return False
 
-while True:
+while True:	
 	k = int(0)
 	n = int(input('Введите количество билетов\n'))
 	if (n > 0):
-		print('Введите билеты')
-		for i in range(0, n):
-			code = input().split(' ')
-			if (IsTicketValid(code, 9) == True):
-				answer = answer + code + ' '
+		code = input('Введите билеты\n').split()
+		for i in range(len(code)):
+			if IsTicketValid(code[i]) == True:
+				print(code[i], end = ' ')
 				k = k + 1
-		if (k > 0):
-			print(answer)
-		else:
+		if k == 0:
 			print(-1)
 		break
 	else:
