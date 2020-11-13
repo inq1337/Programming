@@ -1,7 +1,8 @@
 #ifndef SINUS_H
 #define SINUS_H
-#include "factorial.h"
+
 #include <cmath>
+#include "factorial.h"
 
 double sin(double x, int k)
 {
