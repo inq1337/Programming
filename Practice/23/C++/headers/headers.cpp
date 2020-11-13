@@ -13,5 +13,5 @@ int main()
 		cout << n << "\t" << factorial(n) << endl;
 	cout << endl;
 	for (double x = 0; x <= 3.1415 / 4; x = x + 3.1415 / 180)
-		cout << std::setprecision(4) << x << "\t" << sin(x) << endl;
+		cout << std::setprecision(4) << x << "\t" << sin(x, 5) << endl;
 }
