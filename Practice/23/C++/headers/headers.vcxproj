@@ -142,6 +142,7 @@
     <ClCompile Include="headers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="combination.h" />
     <ClInclude Include="factorial.h" />
     <ClInclude Include="sinus.h" />
   </ItemGroup>
