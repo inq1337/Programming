@@ -1,5 +1,7 @@
 ﻿#include <iostream>
+#include <iomanip>
 #include "factorial.h"
+#include "sinus.h"
 
 int main()
 {
@@ -9,5 +11,7 @@ int main()
 	cout << "n\t" << "n!\t" <<endl;
 	for (int n = 1; n <= 10; n++)
 		cout << n << "\t" << factorial(n) << endl;
-
+	cout << endl;
+	for (double x = 0; x <= 3.1415 / 4; x = x + 3.1415 / 180)
+		cout << std::setprecision(4) << x << "\t" << sin(x) << endl;
 }
