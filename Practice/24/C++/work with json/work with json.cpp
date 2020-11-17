@@ -22,7 +22,7 @@ int main()
 	{
 		completed = 0;
 		for (int j = 0; j < indata.size(); j++)
-			if (indata[j]["completed"] == true and indata[j]["userId"] == i)
+			if (indata[j]["completed"] and indata[j]["userId"] == i)
 				completed++;
 
 		if (completed > 0)
