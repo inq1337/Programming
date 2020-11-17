@@ -1,20 +1,27 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <json.hpp>
+#include <iomanip>
 
 using nlohmann::json;
-using std::ifstream;
-using std::string;
+
 int main()
 {
-	ifstream i("in.json");
+	std::ifstream i("in.json");
 	json in;
 	i >> in;
-	int comp[10] = { 0 };
-	int j;
+	int *comp;
+	int uc = 0;
 	for (int i = 0; i < in.size(); i++)
 	{
-		for (j = 1; j <= 10; j++)
+		if (in[i]["userId"] >= uc)
+			uc = in[i]["userId"];
+	}
+	comp = new int[uc] { 0 };
+
+	for (int i = 0; i < in.size(); i++)
+	{
+		for (int j = 1; j <= uc; j++)
 		{
 			if (in[i]["completed"] == true and in[i]["userId"] == j)
 			{
@@ -22,6 +29,18 @@ int main()
 			}
 		}
 	}
-	for (j = 1; j<=10; j++)
-		std::cout << j << " element is " << comp[j - 1] << std::endl; //очень предварительно, но пока дальше не продвинулся
+
+	json out = json::array();
+	for (int j = 1; j <= uc; j++)
+	{
+		{
+			json s;
+			s["task_completed"] = comp[j - 1];
+			s["userId"] = j;
+			out.push_back(s);
+		}
+	}
+	delete[] comp;
+	std::ofstream o("out.json");
+	o << std::setw(2) << out << std::endl;
 }
