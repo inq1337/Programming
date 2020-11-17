@@ -1,46 +1,39 @@
 ﻿#include <iostream>
 #include <fstream>
-#include <json.hpp>
 #include <iomanip>
+#include <json.hpp>
 
 using nlohmann::json;
 
 int main()
 {
-	std::ifstream i("in.json");
-	json in;
-	i >> in;
-	int *comp;
+	std::ifstream input("in.json");
+	json indata;
+	input >> indata;
+	int *completed;
 	int uc = 0;
-	for (int i = 0; i < in.size(); i++)
+	for (int i = 0; i < indata.size(); i++)
 	{
-		if (in[i]["userId"] >= uc)
-			uc = in[i]["userId"];
+		if (indata[i]["userId"] >= uc)
+			uc = indata[i]["userId"];
 	}
-	comp = new int[uc] { 0 };
+	completed = new int[uc] { 0 };
 
-	for (int i = 0; i < in.size(); i++)
+	for (int i = 0; i < indata.size(); i++)
 	{
-		for (int j = 1; j <= uc; j++)
-		{
-			if (in[i]["completed"] == true and in[i]["userId"] == j)
-			{
-				comp[j - 1]++;
-			}
-		}
+		if (indata[i]["completed"] == true)
+			completed[indata[i]["userId"] - 1]++;
 	}
 
-	json out = json::array();
-	for (int j = 1; j <= uc; j++)
+	json outdata = json::array();
+	for (int i = 1; i <= uc; i++)
 	{
-		{
-			json s;
-			s["task_completed"] = comp[j - 1];
-			s["userId"] = j;
-			out.push_back(s);
-		}
+		json object;
+		object["task_completed"] = completed[i - 1];
+		object["userId"] = i;
+		outdata.push_back(object);
 	}
-	delete[] comp;
-	std::ofstream o("out.json");
-	o << std::setw(2) << out << std::endl;
+	delete[] completed;
+	std::ofstream output("out.json");
+	output << std::setw(2) << outdata << std::endl;
 }
