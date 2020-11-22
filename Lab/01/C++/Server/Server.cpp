@@ -17,11 +17,11 @@ void gen_response_raw(const Request& req, Response& res);
 
 int main()
 {
-	Server weather;
-	weather.Get("/", gen_response);
+    Server weather;
+    weather.Get("/", gen_response);
     weather.Get("/raw", gen_response_raw);
-	cout << "Start server... OK\n";
-	weather.listen("localhost", 3000);
+    cout << "Start server... OK\n";
+    weather.listen("localhost", 3000);
 }
 
 json GetWeather()
