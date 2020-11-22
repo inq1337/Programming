@@ -26,8 +26,14 @@ int main()
 
 json GetWeather()
 {
+    string req, adr, param, api;
+    adr = "/data/2.5/onecall?id=524901&";
+    param = "lat=44.95719&lon=34.11079&exclude=current,minutely,daily,alerts&units=metric&lang=ru&";
+    api = "appid=bb693a45bf038ad8c1cc887c8a5bd872";
+    req = adr + param + api;
+
     Client get_time("http://api.openweathermap.org");
-    auto res = get_time.Get("/data/2.5/onecall?id=524901&lat=44.95719&lon=34.11079&exclude=current,minutely,daily,alerts&units=metric&lang=ru&appid=bb693a45bf038ad8c1cc887c8a5bd872");
+    auto res = get_time.Get(req.c_str());
     if (res) {
         if (res->status == 200)
         {
