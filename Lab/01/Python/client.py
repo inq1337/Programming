@@ -10,7 +10,7 @@ def WeatherReload(event=None):
 
 root = Tk()
 root.title("Погода")
-root.bind("<Button-1>", WeatherReload)
+root.bind("<Button-3>", WeatherReload)
 root.geometry("185x220")
 
 TopFrame = Frame(root, bg="#ffcd57")
