@@ -84,14 +84,7 @@ vector<int> BozoSort(vector<vector<int>> matrix, bool order = true)
 			}
 		}
 	}
-	if (order)
-	{
-		return BozoSort(arr);
-	}
-	else
-	{
-		return BozoSort(arr, false);
-	}
+	return BozoSort(arr, order);
 }
 
 vector<int> BozoSort(int a, int b, int c, bool order = true)
@@ -100,14 +93,7 @@ vector<int> BozoSort(int a, int b, int c, bool order = true)
 	arr[0] = a;
 	arr[1] = b;
 	arr[2] = c;
-	if (order)
-	{
-		return BozoSort(arr);
-	}
-	else
-	{
-		return BozoSort(arr, false);
-	}
+	return BozoSort(arr, order);
 }
 
 int main()
@@ -138,21 +124,11 @@ int main()
 			}
 		}
 	}
-	int a, b, c;
-	a = arr[0];
-	b = arr[1];
-	c = arr[2];
 	cout << endl;
-	arr = BozoSort(arr);
-	ArrayOuter(arr, n);
-	arr = BozoSort(arr, false);
-	ArrayOuter(arr, n);
-	arr = BozoSort(matrix);
-	ArrayOuter(arr, n);
-	arr = BozoSort(matrix, false);
-	ArrayOuter(arr, n);
-	arr = BozoSort(a, b, c);
-	ArrayOuter(arr, 3);
-	arr = BozoSort(a, b, c, false);
-	ArrayOuter(arr, 3);
+	ArrayOuter(BozoSort(arr), n);
+	ArrayOuter(BozoSort(arr, false), n);
+	ArrayOuter(BozoSort(matrix), n);
+	ArrayOuter(BozoSort(matrix, false), n);
+	ArrayOuter(BozoSort(arr[0], arr[1], arr[2]), 3);
+	ArrayOuter(BozoSort(arr[0], arr[1], arr[2], false), 3);
 }
