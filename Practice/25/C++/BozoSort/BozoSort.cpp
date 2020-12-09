@@ -5,11 +5,11 @@
 
 using namespace std;
 
-void ArrayOuter(vector<int> arr, int n)
+void ArrayOuter(vector<int> arr)
 {
-	for (int i = 0; i < n; i++)
+	for (auto item : arr)
 	{
-		cout << arr[i] << " ";
+		cout << item << " ";
 	}
 	cout << endl;
 }
@@ -68,20 +68,12 @@ vector<int> BozoSort(vector<int> arr, bool order = true)
 
 vector<int> BozoSort(vector<vector<int>> matrix, bool order = true)
 {
-	int n, s, i;
-	s = matrix.size();
-	n = pow(s, 2);
-	i = 0;
-	vector<int> arr(n);
-	while (i < n)
+	vector<int> arr;
+	for (auto &row : matrix)
 	{
-		for (int j = 0; j < s; j++)
+		for (auto item : row)
 		{
-			for (int k = 0; k < s; k++)
-			{
-				arr[i] = matrix[j][k];
-				i++;
-			}
+			arr.push_back(item);
 		}
 	}
 	return BozoSort(arr, order);
@@ -125,10 +117,10 @@ int main()
 		}
 	}
 	cout << endl;
-	ArrayOuter(BozoSort(arr), n);
-	ArrayOuter(BozoSort(arr, false), n);
-	ArrayOuter(BozoSort(matrix), n);
-	ArrayOuter(BozoSort(matrix, false), n);
-	ArrayOuter(BozoSort(arr[0], arr[1], arr[2]), 3);
-	ArrayOuter(BozoSort(arr[0], arr[1], arr[2], false), 3);
+	ArrayOuter(BozoSort(arr));
+	ArrayOuter(BozoSort(arr, false));
+	ArrayOuter(BozoSort(matrix));
+	ArrayOuter(BozoSort(matrix, false));
+	ArrayOuter(BozoSort(arr[0], arr[1], arr[2]));
+	ArrayOuter(BozoSort(arr[0], arr[1], arr[2], false));
 }
