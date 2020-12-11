@@ -1,21 +1,34 @@
 import random
+from multipledispatch import dispatch
+#в питоне не предусмотрена перегрузка
+#будем использовать декоратор dispatch
 
 def ArrayOuter(arr: list, n: int):
 	for i in range(n):
 		print(arr[i], ' ', end='')
 	print()
 
-def BozoSortArray(arr: list, order = True) -> list:
-	sorted = False
+#при использовании декоратора dispacth
+#не работают аргументы по-умолчанию
+@dispatch(list, bool)
+def BozoSort(arr, order) -> list:
+	#в питоне нельзя проверить, является ли список
+	#2D на этапе получения функцией аргумента
+	if type(arr[0]) == list:
+		matrix = arr
+		s = int(len(matrix))
+		arr = []
+		for i in range(s):
+			for j in range(s):
+				arr.append(matrix[i][j])
+		del i, j
 	n = int(len(arr))
+	sorted = False
 	while (not sorted):
 		if (order):
 			index1 = random.randint(0, (n - 1))
 			index2 = random.randint(0, (n - 1))
-
-			temp = arr[index1]
-			arr[index1] = arr[index2]
-			arr[index2] = temp
+			arr[index1], arr[index2] = arr[index2], arr[index1]
 
 			sorted = True
 
@@ -26,10 +39,7 @@ def BozoSortArray(arr: list, order = True) -> list:
 		else:
 			index1 = random.randint(0, (n - 1))
 			index2 = random.randint(0, (n - 1))
-
-			temp = arr[index1]
-			arr[index1] = arr[index2]
-			arr[index2] = temp
+			arr[index1], arr[index2] = arr[index2], arr[index1]
 
 			sorted = True
 
@@ -39,17 +49,9 @@ def BozoSortArray(arr: list, order = True) -> list:
 					break
 	return arr
 
-def BozoSortMatrix(matrix: list, order = True) -> list:
-	s = int(len(matrix))
-	arr = []
-	for i in range(s):
-		for j in range(s):
-			arr.append(matrix[i][j])
-	del i, j
-	return BozoSortArray(arr, order)
-
-def BozoSortNums(a: int, b: int, c: int, order = True) -> list:
-	return BozoSortArray([a, b, c], order)
+@dispatch(int, int, int, bool)
+def BozoSort(a, b, c, order) -> list:
+	return BozoSort([a, b, c], order)
 
 n = int(input('Введите количество элементов\n'))
 s = int(n**0.5)
@@ -66,13 +68,9 @@ for i in range(n):
 		row = []
 del row, k, i
 
-a = int(arr[0])
-b = int(arr[1])
-c = int(arr[2])
-
-ArrayOuter(BozoSortArray(arr), n)
-ArrayOuter(BozoSortArray(arr, False), n)
-ArrayOuter(BozoSortMatrix(matrix), n)
-ArrayOuter(BozoSortMatrix(matrix, False), n)
-ArrayOuter(BozoSortNums(arr[0], arr[1], arr[2]), 3)
-ArrayOuter(BozoSortNums(arr[0], arr[1], arr[2], False), 3)
+ArrayOuter(BozoSort(arr, True), n)
+ArrayOuter(BozoSort(arr, False), n)
+ArrayOuter(BozoSort(matrix, True), n)
+ArrayOuter(BozoSort(matrix, False), n)
+ArrayOuter(BozoSort(arr[0], arr[1], arr[2], True), 3)
+ArrayOuter(BozoSort(arr[0], arr[1], arr[2], False), 3)
