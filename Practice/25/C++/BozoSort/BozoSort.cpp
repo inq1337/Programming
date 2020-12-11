@@ -23,13 +23,7 @@ vector<int> BozoSort(vector<int> arr, bool order = true)
 	{
 		if (order)
 		{
-			int index1 = rand() % n;
-			int index2 = rand() % n;
-
-			int temp = arr[index1];
-			arr[index1] = arr[index2];
-			arr[index2] = temp;
-
+			swap(arr[rand() % n], arr[rand() % n]);
 			sorted = true;
 
 			for (int i = 1; i < n; i++)
@@ -43,12 +37,7 @@ vector<int> BozoSort(vector<int> arr, bool order = true)
 		}
 		else
 		{
-			int index1 = rand() % n;
-			int index2 = rand() % n;
-
-			int temp = arr[index1];
-			arr[index1] = arr[index2];
-			arr[index2] = temp;
+			swap(arr[rand() % n], arr[rand() % n]);
 
 			sorted = true;
 
@@ -81,10 +70,7 @@ vector<int> BozoSort(vector<vector<int>> matrix, bool order = true)
 
 vector<int> BozoSort(int a, int b, int c, bool order = true)
 {
-	vector<int> arr(3);
-	arr[0] = a;
-	arr[1] = b;
-	arr[2] = c;
+	vector<int> arr{a, b, c};
 	return BozoSort(arr, order);
 }
 
@@ -102,7 +88,9 @@ int main()
 
 	cout << "Заполните массив\n";
 	for (int i = 0; i < n; i++)
+	{
 		cin >> arr[i];
+	}
 
 	int i = 0;
 	while (i < n)
