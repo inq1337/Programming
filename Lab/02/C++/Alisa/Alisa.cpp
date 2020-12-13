@@ -42,7 +42,8 @@ json config_open()
     else
     {
         logger << u8"Не удалость открыть конфигурационный файл" << endl;
-        config = { "wehbooks", json::array() };
+        config["webhooks"] = json::array();
+        logger << u8"Был создан json с пустым массивом" << endl;
     }
 
     return config;
