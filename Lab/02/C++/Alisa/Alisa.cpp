@@ -106,7 +106,7 @@ string gen_webhook_page()
     return webhooks_template;
 }
 
-void change_webhook_page(const Request& req)
+void webhooks_post_resp(const Request& req, Response& res)
 {
     if (config.empty())
     {
@@ -124,6 +124,7 @@ void change_webhook_page(const Request& req)
             {
                 config["webhooks"].erase(config["webhooks"].begin() + i);
                 logger << u8"Был удалён вебхук " << webhook << endl;
+                break;
             }
         }
     }
@@ -160,11 +161,6 @@ void change_webhook_page(const Request& req)
         }
     }
     save_config(config);
-}
-
-void webhooks_post_resp(const Request& req, Response& res)
-{
-    change_webhook_page(req);
     string output = gen_webhook_page();
     res.set_content(output, "text/html; charset=UTF-8");
 }
@@ -175,12 +171,12 @@ void webhooks_page(const Request& req, Response& res)
     res.set_content(output, "text/html");
 }
 
+
 int main()
 {
     Server svr;
     svr.Post("/webhooks", webhooks_post_resp);
     svr.Get("/webhooks", webhooks_page);
-    cout << "Server started..." << endl;
     logger << u8"Сервер успешно запущен" << endl;
     svr.listen("localhost", 1234);
 }
