@@ -28,7 +28,7 @@ def ListGenerate(sheet):
 def saveBuffer():
     global Buffer
     try:
-        book = openpyxl.open(r'C:\Users\Inquisitor\source\repos\Programming\Lab\02\Python\data.xlsx', read_only=False)
+        book = openpyxl.open(r'C:\Users\Inquisitor\source\repos\Programming\Lab\02\excel\data.xlsx', read_only=False)
     except:
         book = openpyxl.Workbook()
     sheet = book.active
@@ -39,7 +39,7 @@ def saveBuffer():
         sheet['D1'] = 'Item'
         sheet['E1'] = 'Prise'
     sheet = ListGenerate(sheet)
-    book.save(r'C:\Users\Inquisitor\source\repos\Programming\Lab\02\Python\data.xlsx')
+    book.save(r'C:\Users\Inquisitor\source\repos\Programming\Lab\02\excel\data.xlsx')
     book.close()
 
 
