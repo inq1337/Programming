@@ -310,7 +310,7 @@ def ListGenerate(sheet):
     return sheet
 
 
-def saveBuffer():
+def BufferToExcel():
     global Buffer
     try:
         book = openpyxl.open(r'C:\Users\Inquisitor\source\repos\Programming\Lab\02\excel\data.xlsx', read_only=False)
@@ -333,7 +333,7 @@ def BufferGenerate(data):
     data['datetime'] = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     Buffer.append(data)
     if len(Buffer) >= 1000:
-        saveBuffer()
+        BufferToExcel()
         Buffer = []
 
 
