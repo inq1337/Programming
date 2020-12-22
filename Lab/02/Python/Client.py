@@ -47,7 +47,7 @@ def BufferGenerate(data):
     global Buffer
     data['datetime'] = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     Buffer.append(data)
-    if len(Buffer) >= 0:
+    if len(Buffer) >= 1000:
         saveBuffer()
         Buffer = []
 
