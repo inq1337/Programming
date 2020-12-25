@@ -1,133 +1,83 @@
 ﻿#include <iostream>
 #include <map>
-#include <stdexcept>
+#include <iomanip>
 #include <string>
 #include <vector>
-#include <cstdlib>
 
 using std::cin;
 using std::cout;
+using std::endl;
+using std::setw;
 using std::string;
+using std::vector;
 
 struct Student
 {
-    std::map<std::string, int> data_exams;
-    string data_name;
-    int data_group;
-
-    Student(std::string name, int group,
-        int math, int phys, int hist, int prog)
-    {
-        using std::to_string;
-        if (group < 1 or group > 9)
-            throw std::invalid_argument("Invalid group. Got " + to_string(group));
-        if (math < 0 or math > 9 or phys < 0 or phys > 9 or hist < 0 or hist > 9
-            or prog < 0 or prog > 9)
-            throw std::invalid_argument("Invalid notes. Got " +
-                to_string(math) + ", " + to_string(phys) + ", " + to_string(hist)
-                + ", " + to_string(prog));
-
-        data_exams = { {"math", math}, {"phys", phys}, {"hist", hist}, {"prog", prog} };
-        data_name = name;
-        data_group = group;
-    }
-
-    friend
-        std::ostream& operator << (std::ostream& out, const Student& student)
-    {
-        auto name_len = std::max(int(student.data_name.length()), 4);
-        auto name_delim = string(name_len, '-');
-        out << "+-" << name_delim << "-+-------+------+------+------+------+\n"
-            << "| Name " << std::string(name_len - 4, ' ')
-            << "| Group | Math | Phys | Hist | Prog |\n"
-            << "+-" << name_delim << "-+-------+------+------+------+------+\n"
-            << "| " << student.data_name << " | " << student.data_group
-            << "     | " << student.data_exams.at("math")
-            << "    | " << student.data_exams.at("phys")
-            << "    | " << student.data_exams.at("hist")
-            << "    | " << student.data_exams.at("prog")
-            << "    |\n"
-            << "+-" << name_delim << "-+-------+------+------+------+------+\n";
-        return out;
-    }
-
-    bool operator < (const Student& other) const
-    {
-        return data_name < other.data_name;
-    }
-    bool operator > (const Student& other) const
-    {
-        return data_name > other.data_name;
-    }
+    std::string name;
+    short group;
+    std::map<std::string, short> exams;
 };
 
-std::ostream& operator << (std::ostream& out, const std::vector<Student>& student_vec)
+bool operator > (Student first, Student second)
 {
-    auto name_len = student_vec.at(0).data_name.length();
-    for (auto itr = student_vec.begin() + 1; itr != student_vec.end(); ++itr)
-    {
-        if (itr->data_name.length() > name_len)
-        {
-            name_len = itr->data_name.length();
-        }
-    }
-    auto name_delim = std::string(name_len, '-');
-    out << "+-" << name_delim << "-+-------+------+------+------+------+\n"
-        << "| Name " << std::string(name_len - 4, ' ')
-        << "| Group | Math | Phys | Hist | Prog |\n"
-        << "+-" << name_delim << "-+-------+------+------+------+------+\n";
+    return first.name > second.name;
+}
 
-    for (auto& student : student_vec) 
+std::ostream& operator<<(std::ostream& out, vector<Student> BadLeanners)
+{
+    out << "+--------------+-------+------+------+------+------+" << endl
+        << "| Name         | Group | Math | Phys | Hist | Prog |" << endl
+        << "+--------------+-------+------+------+------+------+" << endl;
+    for (auto student : BadLeanners)
     {
-        out << "| " << student.data_name
-            << std::string(name_len - student.data_name.length(), ' ')
-            << " | " << student.data_group
-            << "     | " << student.data_exams.at("math")
-            << "    | " << student.data_exams.at("phys")
-            << "    | " << student.data_exams.at("hist")
-            << "    | " << student.data_exams.at("prog")
-            << "    |\n"
-            << "+-" << name_delim << "-+-------+------+------+------+------+\n";
+        out << "| " << student.name << setw(15 - student.name.length())
+            << "| " << student.group << setw(7)
+            << "| " << student.exams["math"] << setw(6)
+            << "| " << student.exams["phys"] << setw(6)
+            << "| " << student.exams["hist"] << setw(6)
+            << "| " << student.exams["prog"] << setw(5)
+            << "|" << endl
+            << "+--------------+-------+------+------+------+------+" << endl;
     }
+
     return out;
-};
+}
+
+std::ostream& operator<<(std::ostream& out, Student BadLeanner)
+{
+    out << "+--------------+-------+------+------+------+------+" << endl
+        << "| Name         | Group | Math | Phys | Hist | Prog |" << endl
+        << "+--------------+-------+------+------+------+------+" << endl
+        << "| " << BadLeanner.name << setw(15 - BadLeanner.name.length())
+        << "| " << BadLeanner.group << setw(7)
+        << "| " << BadLeanner.exams["math"] << setw(6)
+        << "| " << BadLeanner.exams["phys"] << setw(6)
+        << "| " << BadLeanner.exams["hist"] << setw(6)
+        << "| " << BadLeanner.exams["prog"] << setw(5)
+        << "|" << endl
+        << "+--------------+-------+------+------+------+------+" << endl;
+    
+    return out;
+}
 
 template <class T>
-std::vector<T> BozoSort(std::vector<T> arr, bool order = true)
+std::vector<T> BozoSort(vector<T> arr)
 {
     bool sorted = false;
     int n = arr.size();
 
     while (!sorted)
     {
-        if (order)
+        std::swap(arr[rand() % n], arr[rand() % n]);
+
+        sorted = true;
+
+        for (int i = 1; i < n; i++)
         {
-            std::swap(arr[rand() % n], arr[rand() % n]);
-
-            sorted = true;
-
-            for (int i = 1; i < n; i++)
+            if (arr[i - 1] > arr[i])
             {
-                if (arr[i - 1] > arr[i])
-                {
-                    sorted = false;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            std::swap(arr[rand() % n], arr[rand() % n]);
-
-            sorted = true;
-
-            for (int i = 1; i < n; i++)
-            {
-                if (arr[i - 1] < arr[i])
-                {
-                    sorted = false;
-                    break;
-                }
+                sorted = false;
+                break;
             }
         }
     }
@@ -138,18 +88,48 @@ std::vector<T> BozoSort(std::vector<T> arr, bool order = true)
 int main()
 {
     std::srand(time(0));
-    std::vector<Student> students = {
-        Student("Yegor", 4, 3, 3, 2, 5),
-        Student("Kyoko", 4, 3, 3, 3, 5),
-        Student("Vasya", 4, 3, 5, 2, 5),
-        Student("Clown", 4, 3, 3, 4, 5),
-        Student("Luser232", 4, 3, 2, 3, 5),
-        Student("Nikita", 2, 4, 3, 4, 5),
-        Student("Andrew", 3, 4, 5, 3, 5),
-        Student("Alex", 2, 2, 5, 3, 5),
-        Student("George", 2, 3, 3, 4, 5),
-        Student("Kotlyar", 2, 3, 3, 4, 5),
-    };
+    vector<Student> StudentsList, BadLearners;
+    StudentsList = {
+    { "Ratkovskiy E", 1, { {"math", 5}, {"phys", 5}, {"hist", 5}, {"prog", 5} } },
+    { "Koroteeva K",  1, { {"math", 5}, {"phys", 5}, {"hist", 5}, {"prog", 5} } },
+    { "Abybulaeva E", 1, { {"math", 5}, {"phys", 5}, {"hist", 5}, {"prog", 5} } },
+    { "Kotlyar D",    1, { {"math", 2}, {"phys", 2}, {"hist", 2}, {"prog", 2} } },
+    { "Kaban K",      2, { {"math", 3}, {"phys", 4}, {"hist", 2}, {"prog", 3} } },
+    { "Hoorny H",     3, { {"math", 5}, {"phys", 3}, {"hist", 3}, {"prog", 4} } },
+    { "Clown H",      4, { {"math", 2}, {"phys", 3}, {"hist", 2}, {"prog", 3} } },
+    { "Ivanov S",     5, { {"math", 3}, {"phys", 4}, {"hist", 5}, {"prog", 5} } },
+    { "Geralt R",     6, { {"math", 5}, {"phys", 5}, {"hist", 5}, {"prog", 3} } },
+    { "Ablyamitov E", 7, { {"math", 5}, {"phys", 3}, {"hist", 3}, {"prog", 4} } } };
 
-    students = BozoSort(students);
+    short cnt = 0;
+
+    for (auto student : StudentsList)
+    {
+        for (auto mark : student.exams)
+        {
+            if (mark.second == 2)
+            {
+                cnt++;
+                BadLearners.push_back(student);
+                break;
+            }
+        }
+    }
+
+    if (cnt == 0)
+    {
+        cout << "Not found";
+    }
+    else if (cnt == 1)
+    {
+        cout << BadLearners[0] << endl
+             << "Expulsion\n" << endl
+             << BadLearners[0];
+    }
+    else
+    {
+        cout << BozoSort(BadLearners) << endl
+             << "Expulsion\n" << endl
+             << BadLearners[rand() % BadLearners.size()];
+    }
 }
