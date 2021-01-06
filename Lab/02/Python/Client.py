@@ -53,13 +53,15 @@ def BufferGenerate(data):
 
 
 app = Flask(__name__)
- 
+
 @app.route('/', methods=['POST', 'GET'])
 def index():
-	if request.is_json:
-		data = request.get_json().decode('UTF-8')
-		BufferGenerate(data)
-		return 'OK'
- 
+    if request.method == 'POST':
+        data = request.json
+        BufferGenerate(data)
+        return 'OK'
+      
+    elif request.method == 'GET':
+        return 'Это GET запрос'
 if __name__ == "__main__":
 	app.run()
