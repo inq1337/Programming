@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <ctime>
 
+//C++ 20 only
+
 enum ItemType {
     COIN,
     RUNE,
