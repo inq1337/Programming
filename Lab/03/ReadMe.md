@@ -240,13 +240,13 @@ class GameInfo:
 
 
 class Interface:
-    def __init__(self, field_size):
+    def __init__(self):
         global tiles
 
         self.root = Tk()
         self.root.title('Линии')
-        width = 68 * field_size + 200
-        height = 68 * field_size + 10
+        width = 880
+        height = 690
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
 
@@ -268,9 +268,9 @@ class Interface:
         self.info = GameInfo(self.info_frame)
 
         self.field = []
-        for row in range(field_size):
+        for row in range(10):
             self.field.append([])
-            for col in range(field_size):
+            for col in range(10):
                 cell = ViewFieldCell(self.field_frame, row, col, self.field)
                 self.field[row].append(cell)
 
@@ -582,7 +582,7 @@ class Model:
             steps = new_steps_storage
 
 
-ui = Interface(10)
+ui = Interface()
 gameModel = Model(ui)
 
 ui.render()
