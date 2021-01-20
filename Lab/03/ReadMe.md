@@ -47,7 +47,7 @@
 
 #### Создание игры
 
-Создаём приложение, сходное с образцом по графическому интерфейсу и выполняющее те же функции. Приложение выполняем согласно [методичке](https://vladimirchabanov.github.io/lab3.html)
+Создаём приложение, сходное с образцом по графическому интерфейсу и выполняющее те же функции, с одной поправкой: удаление шариков и начисление очков выполняется только в том случает, если ряд составляет **ровно** пять шариков, а не при любом их количестве из расчёта 2 балла за шарик, как в оригинале. Приложение выполняем согласно [методичке](https://vladimirchabanov.github.io/lab3.html)
 
 ![](./images/game.png)
 
@@ -172,7 +172,7 @@ class ViewFieldCell(Label):
             self.click_handler(self, event)
 
     @property
-    def is_free(self):
+    def free(self):
         return not self.backed
 
     def sibling_in(self, direction: Position):
@@ -419,7 +419,7 @@ class Model:
         field = self.view.field
         for row in field:
             for cell in row:
-                if cell.is_free:
+                if cell.free:
                     free.append(cell)
         return free
 
@@ -432,13 +432,13 @@ class Model:
 
     def _cell_click_handler(self, cell: ViewFieldCell, event):
 
-        if cell.is_free:
+        if cell.free:
             if self.state == 'ball not selected':
                 pass
             elif self.state == 'ball selected':
-                reachable = self._cells_reachable(self.selected, cell)
+                line_is_maked = self._cells_reachable(self.selected, cell)
 
-                if reachable:
+                if line_is_maked:
                     cell.put_ball(self.selected.ball_tile)
 
                     self.selected.unselect_ball()
@@ -457,8 +457,8 @@ class Model:
                             cell.unselect_ball()
                             cell.clear()
 
-                            self.score += 2
-                            self.view.info.info.update_score(self.score)
+                        self.score += 10
+                        self.view.info.info.update_score(self.score)
 
                     self.state = 'ball not selected'
 
@@ -477,60 +477,6 @@ class Model:
                 self.selected = cell
                 cell.select_ball()
 
-    def _cells_reachable(self, a: ViewFieldCell, b: ViewFieldCell, print_check_way=False):
-
-        def reset_cells_prev():
-            field = self.view.field
-            for row in field:
-                for cell in row:
-                    cell.is_prev = False
-
-        def step_all_directions(from_cell: ViewFieldCell, target: ViewFieldCell):
-            player_steps = []
-
-            left = Position(1, 0)
-            right = Position(-1, 0)
-            up = Position(0, 1)
-            down = Position(0, -1)
-            for direction in [up, down, left, right]:
-                sibling = from_cell.sibling_in(direction)
-
-                if not sibling:
-                    continue
-
-                if sibling == target:
-                    return True
-                else:
-                    if sibling.is_free and not sibling.is_prev:
-                        sibling.is_prev = True
-                        if print_check_way:
-                            sibling.to_blend_bg_ball(1, self.view.tiles.yellow_ball, 6)
-                        player_steps.append(sibling)
-
-                    elif sibling.is_free and sibling.is_prev:
-                        if print_check_way:
-                            sibling.to_blend_bg_ball(1, self.view.tiles.green_ball, 6)
-
-            return player_steps
-
-        steps = [a]
-
-        while True:
-            new_steps_storage = []
-
-            for step in steps:
-                new_steps = step_all_directions(step, b)
-
-                if new_steps is True:
-                    reset_cells_prev()
-                    return True
-                else:
-                    new_steps_storage += new_steps
-
-            if len(new_steps_storage) == 0:
-                reset_cells_prev
-                return False
-            steps = new_steps_storage
 
     def _check_all_lines(self):
 
@@ -544,14 +490,14 @@ class Model:
                 def reset_sequence(color, field_cell=None):
                     nonlocal sequence, prev_color
 
-                    if len(sequence) > 4:
+                    if len(sequence) == 5:
                         sequences.append(sequence)
 
                     prev_color = color
                     sequence = [field_cell] if field_cell else []
 
                 for cell in line:
-                    if cell.is_free:
+                    if cell.free:
                         reset_sequence(None)
                         continue
 
@@ -578,6 +524,62 @@ class Model:
         field_lines += check_field_lines(self.field.sub_dialogs)
 
         return field_lines
+
+
+    def _cells_reachable(self, a: ViewFieldCell, b: ViewFieldCell, print_check_way=False):
+
+        def reset_cells_prev():
+            field = self.view.field
+            for row in field:
+                for cell in row:
+                    cell.is_prev = False
+
+        def step_all_directions(from_cell: ViewFieldCell, target: ViewFieldCell):
+            player_steps = []
+
+            left = Position(1, 0)
+            right = Position(-1, 0)
+            up = Position(0, 1)
+            down = Position(0, -1)
+            for direction in [up, down, left, right]:
+                sibling = from_cell.sibling_in(direction)
+
+                if not sibling:
+                    continue
+
+                if sibling == target:
+                    return True
+                else:
+                    if sibling.free and not sibling.is_prev:
+                        sibling.is_prev = True
+                        if print_check_way:
+                            sibling.to_blend_bg_ball(1, self.view.tiles.yellow_ball, 6)
+                        player_steps.append(sibling)
+
+                    elif sibling.free and sibling.is_prev:
+                        if print_check_way:
+                            sibling.to_blend_bg_ball(1, self.view.tiles.green_ball, 6)
+
+            return player_steps
+
+        steps = [a]
+
+        while True:
+            new_steps_storage = []
+
+            for step in steps:
+                new_steps = step_all_directions(step, b)
+
+                if new_steps is True:
+                    reset_cells_prev()
+                    return True
+                else:
+                    new_steps_storage += new_steps
+
+            if len(new_steps_storage) == 0:
+                reset_cells_prev
+                return False
+            steps = new_steps_storage
 
 
 ui = Interface(10)
