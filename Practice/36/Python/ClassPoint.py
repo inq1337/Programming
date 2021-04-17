@@ -20,11 +20,11 @@ class Point:
             self.y = math.sin(a2) * a1
 
     def __eq__(self, p):
-        return ((math.trunc(self.x * PRECISION) / PRECISION) == (math.trunc(p.x * PRECISION) / PRECISION) and
+        return type(p) == Point and ((math.trunc(self.x * PRECISION) / PRECISION) == (math.trunc(p.x * PRECISION) / PRECISION) and
                (math.trunc(self.y * PRECISION) / PRECISION) == (math.trunc(p.y * PRECISION) / PRECISION))
 
     def __ne__(self, p):
-        return ((math.trunc(self.x * PRECISION) / PRECISION) != (math.trunc(p.x * PRECISION) / PRECISION) and
+        return type(p) == Point and ((math.trunc(self.x * PRECISION) / PRECISION) != (math.trunc(p.x * PRECISION) / PRECISION) and
                (math.trunc(self.y * PRECISION) / PRECISION) != (math.trunc(p.y * PRECISION) / PRECISION))
 
     def get_x(self):
